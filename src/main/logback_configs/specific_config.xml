@@ -1,0 +1,17 @@
+<included>
+
+
+    <appender name="STDOUT_3" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>X.Y.Z APPENDER %contextName :: %d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="x.y.z" level="INFO">
+        <appender-ref ref="STDOUT_3"/>
+    </logger>
+
+
+</included>

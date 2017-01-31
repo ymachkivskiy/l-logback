@@ -1,0 +1,47 @@
+<configuration debug="true">
+
+    <property resource="logback_variables.properties"/>
+    <property name="inFileProperty" value="IN_FILE"/>
+
+    <define name="randInt" class="org.ym.example.logback.RandomIntPropetyDefiner">
+        <bound>12</bound>
+    </define>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>ROOT:: ${tagProperty} %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="STDOUT_1" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>X APPENDER ${missingTagWithDefault:-DEFAULT_VALUE} ::  %d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="STDOUT_2" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>randIntProp  ${randInt} X.Y APPENDER ${inFileProperty} ::  %d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <root level="debug">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+    <logger name="x" level="INFO">
+        <appender-ref ref="STDOUT_1"/>
+    </logger>
+
+    <logger name="x.y" level="INFO" >
+        <appender-ref ref="STDOUT_2"/>
+    </logger>
+
+</configuration>

@@ -1,0 +1,42 @@
+<configuration debug="true">
+
+    <property name="app_name" value="loback_example"/>
+
+    <appender name="ROLL_OVER_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <file>real_logs/${app_name}/current.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>history/${app_name}/%d{yyyy-MM-dd__HH-mm-ss}.log</fileNamePattern>
+            <maxHistory>9</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ROLL_OVER_WINDOW" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <append>true</append>
+        <file>real_logs/rolling/${app_name}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>history/rolling/${app_name}.%i.log</fileNamePattern>
+            <minIndex>0</minIndex>
+            <maxIndex>5</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>10KB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <root level="debug">
+        <appender-ref ref="ROLL_OVER_APPENDER"/>
+    </root>
+
+    <logger name="x.y" level="info">
+        <appender-ref ref="ROLL_OVER_WINDOW"/>
+    </logger>
+
+</configuration>

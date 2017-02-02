@@ -1,0 +1,19 @@
+<configuration debug="true">
+
+
+    <property name="user.name" value="test_user1"/>
+
+    <appender name="APP_FILE" class="ch.qos.logback.core.FileAppender">
+        <append>true</append>
+        <file>logs/${user.name}.log</file>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="debug">
+        <appender-ref ref="APP_FILE"/>
+    </root>
+
+
+</configuration>

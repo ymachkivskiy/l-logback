@@ -1,0 +1,24 @@
+<configuration debug="true">
+
+    <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
+
+    <appender name="APP_FILE" class="ch.qos.logback.core.FileAppender">
+        <append>true</append>
+        <file>asynch/app.log</file>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ASSYNCH_APP_FILE" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="APP_FILE"/>
+        <queueSize>1000</queueSize>
+        <discardingThreshold>0</discardingThreshold>
+    </appender>
+
+    <root level="debug">
+        <appender-ref ref="ASSYNCH_APP_FILE"/>
+    </root>
+
+
+</configuration>

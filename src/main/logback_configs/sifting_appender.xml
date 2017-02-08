@@ -1,0 +1,26 @@
+<configuration debug="true">
+
+
+
+    <appender name="SIFT_APPENDER" class="ch.qos.logback.classic.sift.SiftingAppender">
+        <discriminator>
+            <key>workerName</key>
+            <defaultValue>unknown</defaultValue>
+        </discriminator>
+        <sift>
+            <appender name="FILE-${workerName}" class="ch.qos.logback.core.FileAppender">
+                <file>sifting/${workerName}.log</file>
+                <append>false</append>
+                <layout class="ch.qos.logback.classic.PatternLayout">
+                    <pattern>%d [%thread] [%X{session}] %level %logger{35} - %msg%n</pattern>
+                </layout>
+            </appender>
+        </sift>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="SIFT_APPENDER"/>
+    </root>
+
+
+</configuration>
